@@ -28,8 +28,8 @@ async function submit() {
     }
     for (img of imgArr){
     img.setAttribute('src', urlArr[count]);
-    img.setAttribute('width', `${90/quant}%`);
-    img.setAttribute('height', `${90/quant}%`);
+    img.setAttribute('width', `${100/quant}%`);
+    img.setAttribute('height', `${100/quant}%`);
     img.setAttribute('class', 'satImage');
     imgDiv.appendChild(img)
     }
