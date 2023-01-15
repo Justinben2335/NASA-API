@@ -19,7 +19,7 @@ async function submit() {
     let urlArr = [];
     let imgArr = [];
     let count = 0;
-    for (i=0; i <= quant; i++){
+    for (i=0; i <= quant - 1; i++){
         let urlToFetch = `${url}?lon=${long + (i*100)}&lat=${lat + (i*100)}&dim=${dim}&date=${date}&api_key=${apiKey}`;
         let response = await fetch(urlToFetch)
         let data = await response.json();
