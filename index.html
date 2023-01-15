@@ -12,11 +12,16 @@
     <body>
         <div id="container">
             <div id="inputs">
-                <label for="latitude">Latitude</label>
+                <label for="latitude">Latitude:</label>
                 <input type="text" placeholder="Latitude" id="latitude" value="42.354218635866545">
+                <label for="longitude">Longitude:</label>
                 <input type="text" placeholder="Longitude" id="longitude" value="-88.85321125745261">
+                <label for="date">Date:</label>
                 <input type="text" placeholder="2014-02-01" id="date" value="2020-02-01">
+                <label for="dim">Zoom:</label>
                 <input type="text" placeholder=".025" id="dim" value=".025">
+                <label for="numberOfPhotos"># of Photos:</label>
+                <input type="number" id="numberOfPhotos" name="numberOfPhotos" min="1" max="5">
                 <button id="submit">SUBMIT</button>
             </div>
             <div id="images">
