@@ -1,6 +1,4 @@
 .satImage {
-    width:50%;
-    height:50%;
     filter:brightness(50%);
     filter:contrast(110%)
 }
