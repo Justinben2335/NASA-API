@@ -24,7 +24,7 @@ async function submit() {
     // console.log(`returnIncreasedDec(.15, 3): ${returnIncreasedDec(.15, 3)}`)
     for (let i=0; i <= quant - 1; i++){
         console.log(`img: ${i + 1} | long: ${Number(long)} | lat: ${Number(lat) + (i * Number(dim))} | dim: ${dim}`)
-        let urlToFetch = `${url}?lon=${Number(Number(long) + (i * Number(dim / 4))).toFixed(2)}&lat=${Number(lat)}&dim=${dim}&date=${date}&api_key=${apiKey}`;
+        let urlToFetch = `${url}?lon=${Number(Number(long) - (i * Number(dim / 2))).toFixed(2)}&lat=${Number(lat)}&dim=${dim}&date=${date}&api_key=${apiKey}`;
         let response = await fetch(urlToFetch)
         let data = await response.json();
         urlArr.push(data.url);
