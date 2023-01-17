@@ -11,16 +11,18 @@ const numPhotos = document.getElementById('numberOfPhotos');
 
 
 async function submit() {
-    let long = longInput.value;
-    let lat = latInput.value;
+    let long = Number(longInput.value).toFixed(2);
+    let lat = Number(latInput.value).toFixed(2);
     let date = dateInput.value;
-    let dim =dimInput.value;
+    let dim =Number(dimInput.value);
     let quant = numPhotos.value;
     let urlArr = [];
     let imgArr = [];
     let count = 0;
-    for (i=0; i <= quant - 1; i++){
-        let urlToFetch = `${url}?lon=${long + (i*100)}&lat=${lat + (i*100)}&dim=${dim}&date=${date}&api_key=${apiKey}`;
+    console.log(`Long: ${long} Lat: ${lat}`)
+    // console.log(`returnIncreasedDec(.15, 3): ${returnIncreasedDec(.15, 3)}`)
+    for (let i=0; i <= quant - 1; i++){
+        let urlToFetch = `${url}?lon=${Number(long) + (i * returnIncreasedDec(dim, 100))}&lat=${Number(lat) + (i * returnIncreasedDec(dim, 100))}&dim=${dim}&date=${date}&api_key=${apiKey}`;
         let response = await fetch(urlToFetch)
         let data = await response.json();
         urlArr.push(data.url);
@@ -31,11 +33,19 @@ async function submit() {
     img.setAttribute('width', `${100/quant}%`);
     img.setAttribute('height', `${100/quant}%`);
     img.setAttribute('class', 'satImage');
-    imgDiv.appendChild(img)
+    imgDiv.prepend(img)
     }
     console.log(urlArr);
     console.log(imgArr);
 }
 
+function returnIncreasedDec(num, mult){
+    num = Number(num);
+    mult = Number(mult);
+    num = num * 100;
+    num = num * mult;
+    num = num / 100;
+    return num
+}
 submitButton.addEventListener('click', function(){submit()})
 
