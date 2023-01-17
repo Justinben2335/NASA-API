@@ -7,10 +7,11 @@ const dimInput = document.getElementById('dim');
 const url = 'https://api.nasa.gov/planetary/earth/assets';
 const imgDiv = document.getElementById('images');
 const numPhotos = document.getElementById('numberOfPhotos');
-
+const loading = document.getElementById('loading')
 
 
 async function submit() {
+    loading.style.display = 'block';
     let long = Number(longInput.value).toFixed(2);
     let lat = Number(latInput.value).toFixed(2);
     let date = dateInput.value;
@@ -19,24 +20,30 @@ async function submit() {
     let urlArr = [];
     let imgArr = [];
     let count = 0;
-    console.log(`Long: ${long} Lat: ${lat}`)
+    //console.log(`Long: ${long} Lat: ${lat}`)
     // console.log(`returnIncreasedDec(.15, 3): ${returnIncreasedDec(.15, 3)}`)
     for (let i=0; i <= quant - 1; i++){
-        let urlToFetch = `${url}?lon=${Number(long) + (i * returnIncreasedDec(dim, 100))}&lat=${Number(lat) + (i * returnIncreasedDec(dim, 100))}&dim=${dim}&date=${date}&api_key=${apiKey}`;
+        console.log(`img: ${i + 1} | long: ${Number(long)} | lat: ${Number(lat) + (i * Number(dim))} | dim: ${dim}`)
+        let urlToFetch = `${url}?lon=${Number(long)}&lat=${Number(Number(lat) + (i * Number(dim / 4))).toFixed(2)}&dim=${dim}&date=${date}&api_key=${apiKey}`;
         let response = await fetch(urlToFetch)
         let data = await response.json();
         urlArr.push(data.url);
         imgArr.push(document.createElement('img'))
     }
+    
     for (img of imgArr){
-    img.setAttribute('src', urlArr[count]);
-    img.setAttribute('width', `${100/quant}%`);
-    img.setAttribute('height', `${100/quant}%`);
-    img.setAttribute('class', 'satImage');
-    imgDiv.prepend(img)
+        img.onload = function(){imgLoaded(img)};
+        img.setAttribute('src', urlArr[count]);
+        img.setAttribute('width', `${100/quant}%`);
+        img.setAttribute('height', `${100/quant}%`);
+        img.setAttribute('class', 'satImage');
+        imgDiv.prepend(img)
+        count += 1;
     }
-    console.log(urlArr);
-    console.log(imgArr);
+    //console.log(urlArr);
+    //console.log(imgArr);
+    
+    
 }
 
 function returnIncreasedDec(num, mult){
@@ -46,6 +53,9 @@ function returnIncreasedDec(num, mult){
     num = num * mult;
     num = num / 100;
     return num
+}
+function imgLoaded(img){
+    loading.style.display = 'none'
 }
 submitButton.addEventListener('click', function(){submit()})
 
